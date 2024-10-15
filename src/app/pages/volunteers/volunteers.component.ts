@@ -14,12 +14,16 @@ import { Volunteer } from '../../types/volunteer.interface';
 export class VolunteersComponent {
 
   volunteersList: Volunteer[] = [];
+  isLoading: boolean = true
 
   constructor(private getVolunteersList: GetVolunteersService) {}
 
   ngOnInit(): void {
     this.getVolunteersList.getAllVolunteers().subscribe(data => {
       this.volunteersList = data;
+    })
+    this.getVolunteersList.getLoading().subscribe(isLoading => {
+      this.isLoading = isLoading
     })
   }
 

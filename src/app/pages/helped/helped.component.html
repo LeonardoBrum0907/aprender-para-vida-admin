@@ -1,8 +1,12 @@
 <div>
-  <p>Pessoas interessadas em ajudar como voluntário.</p>
+  <p>Pessoas precisando de ajuda.</p>
   <ul class="cards-container">
     <li *ngFor="let card of helpedList">
       <app-card-helped [helped]="card"></app-card-helped>
     </li>
   </ul>
 </div>
+
+@if (this.isLoading) {
+  <h1>CARREGANDO...</h1>
+}

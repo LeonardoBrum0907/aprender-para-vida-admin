@@ -14,12 +14,17 @@ import { Helped } from '../../types/helped.interface';
 export class HelpedComponent {
 
   helpedList: Helped[] = []
+  isLoading: boolean = true
 
   constructor(private getHelpedList: GetHelpedService) {}
 
   ngOnInit(): void {
     this.getHelpedList.getAllHelpeds().subscribe(data => {
       this.helpedList = data
+    })
+    this.getHelpedList.getLoading().subscribe(isLoading => {
+      this.isLoading = isLoading
+      console.log(this.isLoading)
     })
   }
 
