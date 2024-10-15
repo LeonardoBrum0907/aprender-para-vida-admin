@@ -1,0 +1,42 @@
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .divider {
+    height: 2px;
+    background-color: var(--text-white);
+  }
+
+  ul {
+    list-style: none;
+
+    a {
+      padding: 1rem 1.5rem;
+      border-radius: 15px;
+      color: var(--text-white);
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.2s;
+
+      i {
+        font-size: 1.8rem;
+        // font-weight: bold;
+      }
+
+      &:hover, &.activebutton {
+        background: var(--text-white);
+        cursor: pointer;
+        color: var(--cyan-600);
+        box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      }
+
+      &:last-child {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}

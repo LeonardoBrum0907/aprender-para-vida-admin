@@ -1,0 +1,21 @@
+.admin-container {
+  height: 100vh;
+  display: flex;
+  width: 100%;
+
+  app-sidebar {
+    background-color: var(--cyan-600);
+    height: 100%;
+    flex-shrink: 0;
+    padding: 3rem 1rem;
+  }
+
+  .panel-container {
+    width: 100%;
+    padding: 0 2rem;
+
+    app-panel-header {
+      width: 100%;
+    }
+  }
+}
