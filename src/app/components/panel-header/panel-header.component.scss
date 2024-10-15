@@ -11,7 +11,7 @@ header {
   }
 
   & > div {
-    width: 50%;
+    width: 60%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -48,8 +48,24 @@ header {
 
     & > div {
       display: flex;
-      gap: 1rem;
+      gap: 2rem;
       align-items: center;
+
+      .user-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        .avatar {
+          background-color: var(--grey-100);
+          border-radius: 50px;
+          height: 2rem;
+          width: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
     }
   }
 }

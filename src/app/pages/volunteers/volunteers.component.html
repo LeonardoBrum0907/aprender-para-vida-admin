@@ -1,5 +1,8 @@
-<ul class="cards-container">
-  <li *ngFor="let card of volunteersList">
-    <app-card [volunteer]="card"></app-card>
-  </li>
-</ul>
+<div>
+  <p>Pessoas interessadas em ajudar como voluntário.</p>
+  <ul class="cards-container">
+    <li *ngFor="let card of volunteersList">
+      <app-card-volunteer [volunteer]="card"></app-card-volunteer>
+    </li>
+  </ul>
+</div>

@@ -1,13 +1,13 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { CardComponent } from "../../components/card/card.component";
+import { CardVolunteerComponent } from '../../components/card-volunteer/card-volunteer.component';
 import { GetVolunteersService } from '../../services/get-volunteers.service';
 import { Volunteer } from '../../types/volunteer.interface';
 
 @Component({
   selector: 'app-volunteers',
   standalone: true,
-  imports: [CardComponent, NgFor],
+  imports: [CardVolunteerComponent, NgFor],
   templateUrl: './volunteers.component.html',
   styleUrl: './volunteers.component.scss'
 })

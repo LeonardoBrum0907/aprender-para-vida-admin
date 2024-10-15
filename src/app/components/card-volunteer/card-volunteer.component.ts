@@ -2,16 +2,12 @@ import { Component, Input } from '@angular/core';
 import { Volunteer } from '../../types/volunteer.interface';
 
 @Component({
-  selector: 'app-card',
+  selector: 'app-card-volunteer',
   standalone: true,
   imports: [],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.scss'
+  templateUrl: './card-volunteer.component.html',
+  styleUrl: './card-volunteer.component.scss'
 })
-export class CardComponent {
+export class CardVolunteerComponent {
   @Input() volunteer!: Volunteer
-
-  ngOnInit(): void {
-    console.log(this.volunteer)
-  }
 }
