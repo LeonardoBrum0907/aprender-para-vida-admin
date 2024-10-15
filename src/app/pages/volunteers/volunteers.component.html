@@ -1,1 +1,5 @@
-<app-card></app-card>
+<ul class="cards-container">
+  <li *ngFor="let card of volunteersList">
+    <app-card [volunteer]="card"></app-card>
+  </li>
+</ul>
