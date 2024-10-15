@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { PanelHeaderComponent } from "./components/panel-header/panel-header.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
+import { GetVolunteersService } from './services/get-volunteers.service';
+import { Volunteer } from './types/volunteer.interface';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +15,10 @@ import { SidebarComponent } from "./components/sidebar/sidebar.component";
 export class AppComponent {
   title = 'aprender-para-vida-admin';
 
-  currentPage!: string;
-
   panelTitle!: string;
+  VolunteerList: Volunteer[] = []
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private volunteersService: GetVolunteersService) {}
 
   ngOnInit(): void {
     this.router.events.subscribe(event => {
@@ -26,6 +27,10 @@ export class AppComponent {
       } else if (this.router.url === '/helped') {
         this.panelTitle = 'Precisando de ajuda'
       }
+    })
+
+    this.volunteersService.getAllVolunteers().subscribe(data => {
+      this.VolunteerList = data
     })
   }
 }
