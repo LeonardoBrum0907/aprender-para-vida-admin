@@ -24,7 +24,6 @@ export class HelpedComponent {
     })
     this.getHelpedList.getLoading().subscribe(isLoading => {
       this.isLoading = isLoading
-      console.log(this.isLoading)
     })
   }
 

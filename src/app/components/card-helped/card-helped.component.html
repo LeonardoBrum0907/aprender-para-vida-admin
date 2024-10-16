@@ -11,11 +11,71 @@
 
   <span class="status">{{ helped.status }}</span>
 
-  <div class="btns-box">
+  <div class="btns-box" (click)="toggleButtons()">
     <button><i class="ph-fill ph-dots-three-outline-vertical"></i></button>
-    <div class="btn-item">
-      <button><i class="ph ph-pencil"></i></button>
+    <div class="btn-item" *ngIf="this.showButton">
+      <button (click)="toggleModal()"><i class="ph ph-pencil"></i></button>
       <button><i class="ph ph-trash"></i></button>
     </div>
   </div>
 </div>
+
+@if(this.modalIsOpen) {
+<div class="blur-effect"></div>
+
+<div class="modal">
+  <div class="modal-content">
+
+    <form class="form-container" [formGroup]="editHelpedForm">
+      <input class="name-input" type="text" id="name" formControlName="name">
+      <div>
+        <div class="inputs-line">
+          <div class="input">
+            <label for="email">Email:</label>
+            <input type="text" id="email" formControlName="email">
+          </div>
+          <div class="input">
+            <label for="phone">Telefone:</label>
+            <input type="text" id="phone" formControlName="phone">
+
+          </div>
+        </div>
+
+        <div class="inputs-line">
+          <div class="input">
+            <label for="address">Endereço:</label>
+            <input type="text" id="address" formControlName="address">
+          </div>
+          <div class="input">
+            <label for="status">Status:</label>
+            <input type="text" id="status" formControlName="status">
+          </div>
+        </div>
+
+        <div class="inputs-line">
+          <div class="input">
+            <label for="area">Area de interesse:</label>
+            <input type="text" id="area" formControlName="area">
+          </div>
+          <div class="input">
+            <label for="comment">Comentários:</label>
+            <input type="text" id="comment" formControlName="comment">
+          </div>
+        </div>
+      </div>
+
+      <div class="btns-box">
+        <button class="save-btn" (click)="helpedEditData()">
+          <mat-spinner color="secondary" class="spinner-loading" *ngIf="this.submitDataIsLoading"></mat-spinner>
+          <span *ngIf="!this.submitDataIsLoading">Salvar</span>
+        </button>
+        <button class="cancel-btn" (click)="toggleModal()">Cancelar</button>
+      </div>
+    </form>
+
+    <div class="close-btn" (click)="toggleModal()">
+      <i class="ph ph-x"></i>
+    </div>
+  </div>
+</div>
+}

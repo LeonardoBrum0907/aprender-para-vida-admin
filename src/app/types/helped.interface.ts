@@ -1,9 +1,10 @@
 export interface Helped {
-  name: String,
-  email: String,
-  phone: String,
-  address: String,
-  area: String,
-  status: String,
-  comment: String
+  _id: string,
+  name: string,
+  email: string,
+  phone: string,
+  address: string,
+  area: string,
+  status: string,
+  comment: string
 }

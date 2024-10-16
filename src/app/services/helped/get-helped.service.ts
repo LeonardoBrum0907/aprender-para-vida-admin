@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Helped } from '../../types/helped.interface';
+import { Helped } from './../../types/helped.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +27,15 @@ export class GetHelpedService {
 
   getAllHelpeds(): Observable<Helped[]> {
     return this.allHelpeds
+  }
+
+  helpedEditData(id: string, helped: Helped): Observable<Helped> {
+    const url = `${this.apiUrl}/helped/${id}`
+    return this.http.put<Helped>(url, helped)
+  }
+
+  getHelpedById(id: string): Observable<Helped> {
+    const url = `${this.apiUrl}/helped/${id}`
+    return this.http.get<Helped>(url)
   }
 }
