@@ -24,7 +24,6 @@ export class GetHelpedService {
     return this.isLoading
   }
 
-
   getAllHelpeds(): Observable<Helped[]> {
     return this.allHelpeds
   }
@@ -37,5 +36,13 @@ export class GetHelpedService {
   getHelpedById(id: string): Observable<Helped> {
     const url = `${this.apiUrl}/helped/${id}`
     return this.http.get<Helped>(url)
+  }
+
+  deleteHelpedById(id: string): Observable<Helped[]> {
+    const url = `${this.apiUrl}/helped/${id}`
+    this.http.delete<Helped[]>(url).subscribe(data => {
+      this.allHelpeds.next(data)
+    })
+    return this.allHelpeds
   }
 }

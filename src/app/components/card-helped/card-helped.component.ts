@@ -25,19 +25,19 @@ export class CardHelpedComponent {
   constructor(
     private helpedService: GetHelpedService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
-      this.editHelpedForm = this.formBuilder.group({
-        name: [this.helped.name],
-        email: [this.helped.email],
-        phone: [this.helped.phone],
-        address: [this.helped.address],
-        status: [this.helped.status],
-        area: [this.helped.area],
-        comment: [this.helped.comment]
-      })
+    this.editHelpedForm = this.formBuilder.group({
+      name: [this.helped.name],
+      email: [this.helped.email],
+      phone: [this.helped.phone],
+      address: [this.helped.address],
+      status: [this.helped.status],
+      area: [this.helped.area],
+      comment: [this.helped.comment]
+    })
 
   }
 
@@ -56,5 +56,9 @@ export class CardHelpedComponent {
       this.submitDataIsLoading = false
       this.modalIsOpen = false
     })
+  }
+
+  deleteHelped() {
+    this.helpedService.deleteHelpedById(this.helped._id).subscribe(() => {})
   }
 }
