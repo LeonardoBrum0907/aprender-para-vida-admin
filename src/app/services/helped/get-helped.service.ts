@@ -8,13 +8,13 @@ import { Helped } from './../../types/helped.interface';
 })
 export class GetHelpedService {
 
-  readonly apiUrl = "https://aprender-para-vida-api.onrender.com"
+  readonly apiUrl = "https://aprender-para-vida-api.onrender.com/helped"
 
   private allHelpeds: BehaviorSubject<Helped[]> = new BehaviorSubject<Helped[]>([])
   private isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
 
   constructor(private http: HttpClient) {
-    this.http.get<Helped[]>(`${this.apiUrl}/helped`).subscribe(data => {
+    this.http.get<Helped[]>(`${this.apiUrl}`).subscribe(data => {
       this.allHelpeds.next(data)
       this.isLoading.next(false)
     })
@@ -29,17 +29,17 @@ export class GetHelpedService {
   }
 
   helpedEditData(id: string, helped: Helped): Observable<Helped> {
-    const url = `${this.apiUrl}/helped/${id}`
+    const url = `${this.apiUrl}/${id}`
     return this.http.put<Helped>(url, helped)
   }
 
   getHelpedById(id: string): Observable<Helped> {
-    const url = `${this.apiUrl}/helped/${id}`
+    const url = `${this.apiUrl}/${id}`
     return this.http.get<Helped>(url)
   }
 
   deleteHelpedById(id: string): Observable<Helped[]> {
-    const url = `${this.apiUrl}/helped/${id}`
+    const url = `${this.apiUrl}/${id}`
     this.http.delete<Helped[]>(url).subscribe(data => {
       this.allHelpeds.next(data)
     })

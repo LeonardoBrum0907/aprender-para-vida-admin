@@ -19,6 +19,7 @@ export class CardHelpedComponent {
   editHelpedForm!: FormGroup
 
   modalIsOpen: boolean = false
+  modalConfirmDeleteIsOpen: boolean = false
   showButton: boolean = false
   submitDataIsLoading: boolean = false
 
@@ -49,16 +50,24 @@ export class CardHelpedComponent {
     this.modalIsOpen = !this.modalIsOpen
   }
 
+  toggleConfirmDeleteModal() {
+    this.modalConfirmDeleteIsOpen = !this.modalConfirmDeleteIsOpen
+  }
+
   helpedEditData() {
     this.submitDataIsLoading = true
     this.helpedService.helpedEditData(this.helped._id, this.editHelpedForm.value).subscribe(data => {
       this.helped = data
       this.submitDataIsLoading = false
-      this.modalIsOpen = false
+      this.toggleModal()
     })
   }
 
   deleteHelped() {
-    this.helpedService.deleteHelpedById(this.helped._id).subscribe(() => {})
+    this.submitDataIsLoading = true
+    this.helpedService.deleteHelpedById(this.helped._id).subscribe(() => {
+      this.submitDataIsLoading = false
+      this.toggleConfirmDeleteModal()
+    })
   }
 }

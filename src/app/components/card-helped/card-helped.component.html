@@ -15,7 +15,7 @@
     <button><i class="ph-fill ph-dots-three-outline-vertical"></i></button>
     <div class="btn-item" *ngIf="this.showButton">
       <button (click)="toggleModal()"><i class="ph ph-pencil"></i></button>
-      <button (click)="deleteHelped()"><i class="ph ph-trash"></i></button>
+      <button (click)="toggleConfirmDeleteModal()"><i class="ph ph-trash"></i></button>
     </div>
   </div>
 </div>
@@ -57,9 +57,12 @@
             <label for="area">Area de interesse:</label>
             <input type="text" id="area" formControlName="area">
           </div>
+        </div>
+
+        <div class="inputs-line comment">
           <div class="input">
             <label for="comment">Comentários:</label>
-            <input type="text" id="comment" formControlName="comment">
+            <textarea type="text" id="comment" formControlName="comment" placeholder="Sem informação..."></textarea>
           </div>
         </div>
       </div>
@@ -79,3 +82,23 @@
   </div>
 </div>
 }
+
+@if(this.modalConfirmDeleteIsOpen) {
+  <div class="modal">
+    <div class="modal-content delete-modal">
+      <p>Confirmar exclusão?</p>
+
+      <div class="btns-box">
+        <button class="save-btn" (click)="deleteHelped()">
+          <mat-spinner color="secondary" class="spinner-loading" *ngIf="this.submitDataIsLoading"></mat-spinner>
+          <span *ngIf="!this.submitDataIsLoading">Confirmar</span>
+        </button>
+        <button class="cancel-btn" (click)="toggleModal()">Cancelar</button>
+      </div>
+
+      <div class="close-btn" (click)="toggleConfirmDeleteModal()">
+        <i class="ph ph-x"></i>
+      </div>
+    </div>
+  </div>
+  }

@@ -5,17 +5,102 @@
 
   <span class="phone">{{ volunteer.phone }}</span>
 
-  <span class="email">{{ volunteer.email }}</span>
+  <!-- <span class="email">{{ volunteer.email }}</span> -->
 
   <span class="area">{{ volunteer.area }}</span>
+
+  <span class="area">{{ volunteer.availability }}</span>
 
   <span class="status">{{ volunteer.status }}</span>
 
   <div class="btns-box">
-    <button><i class="ph-fill ph-dots-three-outline-vertical"></i></button>
-    <div class="btn-item">
-      <button><i class="ph ph-pencil"></i></button>
-      <button><i class="ph ph-trash"></i></button>
+    <button (click)="toggleButtons()"><i class="ph-fill ph-dots-three-outline-vertical"></i></button>
+    <div class="btn-item" *ngIf="this.showButton">
+      <button (click)="toggleModal()"><i class="ph ph-pencil"></i></button>
+      <button (click)="toggleConfirmDeleteModal()"><i class="ph ph-trash"></i></button>
     </div>
   </div>
 </div>
+
+@if(this.modalIsOpen) {
+<div class="modal">
+  <div class="modal-content">
+    <form class="form-container" [formGroup]="editVolunteerForm">
+      <input class="name-input" type="text" id="name" formControlName="name" placeholder="Sem informação...">
+      <div>
+        <div class="inputs-line">
+          <div class="input">
+            <label for="email">Email:</label>
+            <input type="text" id="email" formControlName="email" placeholder="Sem informação...">
+          </div>
+          <div class="input">
+            <label for="phone">Telefone:</label>
+            <input type="text" id="phone" formControlName="phone" placeholder="Sem informação...">
+
+          </div>
+        </div>
+
+        <div class="inputs-line">
+          <div class="input">
+            <label for="address">Endereço:</label>
+            <input type="text" id="address" formControlName="address" placeholder="Sem informação...">
+          </div>
+          <div class="input">
+            <label for="status">Status:</label>
+            <input type="text" id="status" formControlName="status" placeholder="Sem informação...">
+          </div>
+        </div>
+
+        <div class="inputs-line">
+          <div class="input">
+            <label for="area">Area de interesse:</label>
+            <input type="text" id="area" formControlName="area" placeholder="Sem informação...">
+          </div>
+          <div class="input">
+            <label for="availability">Disponibilidade:</label>
+            <input type="text" id="availability" formControlName="availability" placeholder="Sem informação...">
+          </div>
+        </div>
+        <div class="inputs-line comment">
+          <div class="input">
+            <label for="comment">Comentários:</label>
+            <textarea type="text" id="comment" formControlName="comment" placeholder="Sem informação..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="btns-box">
+        <button class="save-btn" (click)="editVolunteerData()">
+          <mat-spinner color="secondary" class="spinner-loading" *ngIf="this.submitDataIsLoading"></mat-spinner>
+          <span *ngIf="!this.submitDataIsLoading">Salvar</span>
+        </button>
+        <button class="cancel-btn" (click)="toggleModal()">Cancelar</button>
+      </div>
+    </form>
+
+    <div class="close-btn" (click)="toggleModal()">
+      <i class="ph ph-x"></i>
+    </div>
+  </div>
+</div>
+}
+
+@if(this.modalConfirmDeleteIsOpen) {
+<div class="modal">
+  <div class="modal-content delete-modal">
+    <p>Confirmar exclusão?</p>
+
+    <div class="btns-box">
+      <button class="save-btn" (click)="deleteVolunteer()">
+        <mat-spinner color="secondary" class="spinner-loading" *ngIf="this.submitDataIsLoading"></mat-spinner>
+        <span *ngIf="!this.submitDataIsLoading">Confirmar</span>
+      </button>
+      <button class="cancel-btn" (click)="toggleModal()">Cancelar</button>
+    </div>
+
+    <div class="close-btn" (click)="toggleConfirmDeleteModal()">
+      <i class="ph ph-x"></i>
+    </div>
+  </div>
+</div>
+}
