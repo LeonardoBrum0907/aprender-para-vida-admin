@@ -8,6 +8,12 @@ nav {
     background-color: var(--text-white);
   }
 
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   ul {
     list-style: none;
 

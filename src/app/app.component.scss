@@ -2,6 +2,7 @@
   height: 100vh;
   display: flex;
   width: 100%;
+  background-color: var(--cyan-600);
 
   app-sidebar {
     background-color: var(--cyan-600);
@@ -13,6 +14,8 @@
   .panel-container {
     width: 100%;
     padding: 0 2rem;
+    border-radius: 40px 0 0 40px;
+    background-color: var(--text-white);
 
     app-panel-header {
       width: 100%;
