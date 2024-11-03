@@ -27,48 +27,56 @@
   <div class="modal-content">
     <form class="form-container" [formGroup]="editVolunteerForm">
       <input class="name-input" type="text" id="name" formControlName="name" placeholder="Sem informação...">
-      <div>
-        <div class="inputs-line">
-          <div class="input">
-            <label for="email">Email:</label>
-            <input type="text" id="email" formControlName="email" placeholder="Sem informação...">
-          </div>
-          <div class="input">
-            <label for="phone">Telefone:</label>
-            <input type="text" id="phone" formControlName="phone" placeholder="Sem informação...">
-
-          </div>
+      <div *ngIf="hasError('name', 'required')" class="error">Nome é obrigatório.</div>
+    
+      <div class="inputs-line">
+        <div class="input">
+          <label for="email">Email:</label>
+          <input type="text" id="email" formControlName="email" placeholder="Sem informação...">
+          <div *ngIf="hasError('email', 'required')" class="error">Email é obrigatório.</div>
+          <div *ngIf="hasError('email', 'email')" class="error">Email inválido.</div>
         </div>
-
-        <div class="inputs-line">
-          <div class="input">
-            <label for="address">Endereço:</label>
-            <input type="text" id="address" formControlName="address" placeholder="Sem informação...">
-          </div>
-          <div class="input">
-            <label for="status">Status:</label>
-            <input type="text" id="status" formControlName="status" placeholder="Sem informação...">
-          </div>
-        </div>
-
-        <div class="inputs-line">
-          <div class="input">
-            <label for="area">Area de interesse:</label>
-            <input type="text" id="area" formControlName="area" placeholder="Sem informação...">
-          </div>
-          <div class="input">
-            <label for="availability">Disponibilidade:</label>
-            <input type="text" id="availability" formControlName="availability" placeholder="Sem informação...">
-          </div>
-        </div>
-        <div class="inputs-line comment">
-          <div class="input">
-            <label for="comment">Comentários:</label>
-            <textarea type="text" id="comment" formControlName="comment" placeholder="Sem informação..."></textarea>
-          </div>
+        <div class="input">
+          <label for="phone">Telefone:</label>
+          <input type="text" id="phone" formControlName="phone" placeholder="Sem informação...">
+          <div *ngIf="hasError('phone', 'required')" class="error">Telefone é obrigatório.</div>
+          <div *ngIf="hasError('phone', 'pattern')" class="error">Telefone inválido.</div>
         </div>
       </div>
-
+    
+      <div class="inputs-line">
+        <div class="input">
+          <label for="address">Endereço:</label>
+          <input type="text" id="address" formControlName="address" placeholder="Sem informação...">
+          <div *ngIf="hasError('address', 'required')" class="error">Endereço é obrigatório.</div>
+        </div>
+        <div class="input">
+          <label for="status">Status:</label>
+          <input type="text" id="status" formControlName="status" placeholder="Sem informação...">
+          <div *ngIf="hasError('status', 'required')" class="error">Status é obrigatório.</div>
+        </div>
+      </div>
+    
+      <div class="inputs-line">
+        <div class="input">
+          <label for="area">Área de interesse:</label>
+          <input type="text" id="area" formControlName="area" placeholder="Sem informação...">
+          <div *ngIf="hasError('area', 'required')" class="error">Área de interesse é obrigatória.</div>
+        </div>
+        <div class="input">
+          <label for="availability">Disponibilidade:</label>
+          <input type="text" id="availability" formControlName="availability" placeholder="Sem informação...">
+          <div *ngIf="hasError('availability', 'required')" class="error">Disponibilidade é obrigatória.</div>
+        </div>
+      </div>
+    
+      <div class="inputs-line comment">
+        <div class="input">
+          <label for="comment">Comentários:</label>
+          <textarea type="text" id="comment" formControlName="comment" placeholder="Sem informação..."></textarea>
+        </div>
+      </div>
+    
       <div class="btns-box">
         <button class="save-btn" (click)="editVolunteerData()">
           <mat-spinner color="secondary" class="spinner-loading" *ngIf="this.submitDataIsLoading"></mat-spinner>
@@ -76,8 +84,7 @@
         </button>
         <button class="cancel-btn" (click)="toggleModal()">Cancelar</button>
       </div>
-    </form>
-
+    </form>    
     <div class="close-btn" (click)="toggleModal()">
       <i class="ph ph-x"></i>
     </div>

@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { Helped } from '../../types/helped.interface';
@@ -31,15 +31,19 @@ export class CardHelpedComponent {
   ngOnInit(): void {
 
     this.editHelpedForm = this.formBuilder.group({
-      name: [this.helped.name],
-      email: [this.helped.email],
-      phone: [this.helped.phone],
-      address: [this.helped.address],
-      status: [this.helped.status],
-      area: [this.helped.area],
+      name: [this.helped.name, [Validators.required]],
+      email: [this.helped.email, [Validators.required, Validators.email]],
+      phone: [this.helped.phone, [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
+      address: [this.helped.address, [Validators.required]],
+      status: [this.helped.status, [Validators.required]],
+      area: [this.helped.area, [Validators.required]],
       comment: [this.helped.comment]
-    })
+    });
 
+  }
+
+  hasError(controlName: string, errorName: string) {
+    return this.editHelpedForm.controls[controlName].hasError(errorName);
   }
 
   toggleButtons() {
@@ -55,12 +59,15 @@ export class CardHelpedComponent {
   }
 
   helpedEditData() {
-    this.submitDataIsLoading = true
+    if (this.editHelpedForm.invalid) {
+      return;
+    }
+    this.submitDataIsLoading = true;
     this.helpedService.helpedEditData(this.helped._id, this.editHelpedForm.value).subscribe(data => {
-      this.helped = data
-      this.submitDataIsLoading = false
-      this.toggleModal()
-    })
+      this.helped = data;
+      this.submitDataIsLoading = false;
+      this.toggleModal();
+    });
   }
 
   deleteHelped() {
