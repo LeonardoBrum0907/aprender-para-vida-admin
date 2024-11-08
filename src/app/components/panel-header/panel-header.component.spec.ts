@@ -10,7 +10,7 @@ describe('PanelHeaderComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PanelHeaderComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PanelHeaderComponent);
     component = fixture.componentInstance;
