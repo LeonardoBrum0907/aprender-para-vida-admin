@@ -12,6 +12,7 @@ export class PanelHeaderComponent {
   @Input() panelTitle: string = '';
   @Output() search = new EventEmitter<string>();
   searchValue: string = '';
+
   onSearchChange(): void {
     this.search.emit(this.searchValue);
   }
