@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { GetVolunteersService } from '../../services/get-volunteers.service';
@@ -14,61 +14,66 @@ import { Volunteer } from '../../types/volunteer.interface';
   styleUrl: './card-volunteer.component.scss'
 })
 export class CardVolunteerComponent {
-  @Input() volunteer!: Volunteer
+  @Input() volunteer!: Volunteer;
 
-  editVolunteerForm!: FormGroup
+  editVolunteerForm!: FormGroup;
 
-  modalIsOpen: boolean = false
-  modalConfirmDeleteIsOpen: boolean = false
-  showButton: boolean = false
-  submitDataIsLoading: boolean = false
+  modalIsOpen: boolean = false;
+  modalConfirmDeleteIsOpen: boolean = false;
+  showButton: boolean = false;
+  submitDataIsLoading: boolean = false;
 
   constructor(
     private volunteerService: GetVolunteersService,
     private formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     this.editVolunteerForm = this.formBuilder.group({
-      name: [this.volunteer.name],
-      email: [this.volunteer.email],
-      phone: [this.volunteer.phone],
-      address: [this.volunteer.address],
-      status: [this.volunteer.status],
-      availability: [this.volunteer.availability],
-      area: [this.volunteer.area],
+      name: [this.volunteer.name, [Validators.required]],
+      email: [this.volunteer.email, [Validators.required, Validators.email]],
+      phone: [this.volunteer.phone, [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
+      address: [this.volunteer.address, [Validators.required]],
+      status: [this.volunteer.status, [Validators.required]],
+      availability: [this.volunteer.availability, [Validators.required]],
+      area: [this.volunteer.area, [Validators.required]],
       comment: [this.volunteer.comment]
-    })
+    });
+  }
 
+  hasError(controlName: string, errorName: string) {
+    return this.editVolunteerForm.controls[controlName].hasError(errorName);
   }
 
   toggleButtons() {
-    this.showButton = !this.showButton
+    this.showButton = !this.showButton;
   }
 
   toggleModal() {
-    this.modalIsOpen = !this.modalIsOpen
+    this.modalIsOpen = !this.modalIsOpen;
   }
 
   toggleConfirmDeleteModal() {
-    this.modalConfirmDeleteIsOpen = !this.modalConfirmDeleteIsOpen
+    this.modalConfirmDeleteIsOpen = !this.modalConfirmDeleteIsOpen;
   }
 
   editVolunteerData() {
-    this.submitDataIsLoading = true
+    if (this.editVolunteerForm.invalid) {
+      return;
+    }
+    this.submitDataIsLoading = true;
     this.volunteerService.editVolunteerData(this.volunteer._id, this.editVolunteerForm.value).subscribe(data => {
-      this.volunteer = data
-      this.submitDataIsLoading = false
-      this.toggleModal()
-    })
+      this.volunteer = data;
+      this.submitDataIsLoading = false;
+      this.toggleModal();
+    });
   }
 
   deleteVolunteer() {
-    this.submitDataIsLoading = true
+    this.submitDataIsLoading = true;
     this.volunteerService.deleteVolunteerById(this.volunteer._id).subscribe(() => {
-      this.submitDataIsLoading = false
-      this.toggleConfirmDeleteModal()
-    })
+      this.submitDataIsLoading = false;
+      this.toggleConfirmDeleteModal();
+    });
   }
 }

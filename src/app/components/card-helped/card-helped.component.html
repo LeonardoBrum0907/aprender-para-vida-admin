@@ -33,11 +33,14 @@
           <div class="input">
             <label for="email">Email:</label>
             <input type="text" id="email" formControlName="email">
+            <div *ngIf="hasError('email', 'required')" class="error">Email é obrigatório.</div>
+            <div *ngIf="hasError('email', 'email')" class="error">Email inválido.</div>
           </div>
           <div class="input">
             <label for="phone">Telefone:</label>
             <input type="text" id="phone" formControlName="phone">
-
+            <div *ngIf="hasError('phone', 'required')" class="error">Telefone é obrigatório.</div>
+            <div *ngIf="hasError('phone', 'pattern')" class="error">Telefone inválido.</div>
           </div>
         </div>
 
@@ -45,10 +48,12 @@
           <div class="input">
             <label for="address">Endereço:</label>
             <input type="text" id="address" formControlName="address">
+            <div *ngIf="hasError('address', 'required')" class="error">Endereço é obrigatório.</div>
           </div>
           <div class="input">
             <label for="status">Status:</label>
             <input type="text" id="status" formControlName="status">
+            <div *ngIf="hasError('status', 'required')" class="error">Status é obrigatório.</div>
           </div>
         </div>
 
@@ -56,6 +61,7 @@
           <div class="input">
             <label for="area">Area de interesse:</label>
             <input type="text" id="area" formControlName="area">
+            <div *ngIf="hasError('area', 'required')" class="error">Área de interesse é obrigatória.</div>
           </div>
         </div>
 
@@ -84,21 +90,21 @@
 }
 
 @if(this.modalConfirmDeleteIsOpen) {
-  <div class="modal">
-    <div class="modal-content delete-modal">
-      <p>Confirmar exclusão?</p>
+<div class="modal">
+  <div class="modal-content delete-modal">
+    <p>Confirmar exclusão?</p>
 
-      <div class="btns-box">
-        <button class="save-btn" (click)="deleteHelped()">
-          <mat-spinner color="secondary" class="spinner-loading" *ngIf="this.submitDataIsLoading"></mat-spinner>
-          <span *ngIf="!this.submitDataIsLoading">Confirmar</span>
-        </button>
-        <button class="cancel-btn" (click)="toggleModal()">Cancelar</button>
-      </div>
+    <div class="btns-box">
+      <button class="save-btn" (click)="deleteHelped()">
+        <mat-spinner color="secondary" class="spinner-loading" *ngIf="this.submitDataIsLoading"></mat-spinner>
+        <span *ngIf="!this.submitDataIsLoading">Confirmar</span>
+      </button>
+      <button class="cancel-btn" (click)="toggleModal()">Cancelar</button>
+    </div>
 
-      <div class="close-btn" (click)="toggleConfirmDeleteModal()">
-        <i class="ph ph-x"></i>
-      </div>
+    <div class="close-btn" (click)="toggleConfirmDeleteModal()">
+      <i class="ph ph-x"></i>
     </div>
   </div>
-  }
+</div>
+}
